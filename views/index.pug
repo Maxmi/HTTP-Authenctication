@@ -1,0 +1,14 @@
+doctype html
+html(lang="en")
+  head
+    title Home Page 
+    link(href='/css/style.css' rel='stylesheet')
+  body
+    if email
+      h1 Welcome back #{email}
+      a#logoutlink(href='logout') Log Out
+    else 
+      h1 Hello Stranger!
+      a#signupLink(href='signup') Sign Up    
+      a#loginlink(href='login') Log In
+    
