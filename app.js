@@ -13,13 +13,13 @@ app.use(session({
 }));
 
 
-//db connection
-const pgp = require('pg-promise')();
-const connection = process.env.NODE_ENV === 'test' 
-  ? 'postgres:///MyApp_Test'
-  : 'postgres:///MyApp'
-  
-const db = pgp(connection);
+//db connection - do we need it here again? already have in db_utils...
+// const pgp = require('pg-promise')();
+// const connection = process.env.NODE_ENV === 'test' 
+//   ? 'postgres:///http_auth_test'
+//   : 'postgres:///http_auth'
+//   
+// const db = pgp(connection);
 
 //parse incoming requests
 app.use(bodyParser.json());
@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
-    error: {}
+    error: err
   });
 });
 

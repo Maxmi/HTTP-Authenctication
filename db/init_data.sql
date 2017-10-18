@@ -1,6 +1,2 @@
-INSERT INTO Users (
-  email, password
-) VALUES 
-(
-  'me@example.com', '123'
-);
+INSERT INTO users (email, password)
+VALUES ('me@example.com', '123');
