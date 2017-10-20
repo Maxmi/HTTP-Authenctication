@@ -21,7 +21,7 @@ const initializeTestDB = () => {
     `)
 };
 
-
+                        //should we pass hash instead of password here?
 const addUser = ( { email, password } ) => {
   return db.one(
     `INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *;`,

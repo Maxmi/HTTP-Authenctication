@@ -1,9 +1,5 @@
-doctype html
-html(lang="en")
-  head
-    title Home Page 
-    link(href='/css/style.css' rel='stylesheet')
-  body
+extends layout
+block content
     if email
       h1 Welcome back #{email}
       a#logoutlink(href='logout') Log Out

@@ -1,13 +1,15 @@
-extends layout
-block content
-  h1 Log In
+extends login 
+block form 
+  h1 THe form
+
   form(method='POST' action='/login')
+  
     label(for='email') Email:
-    input#email.form-control(type='email' name='email' placeholder='email')
+    input#email.form-control(type='email' required name='email' placeholder='email')
     br
     
     label(for='password') Password:
     input#password.form-control(type='password' required name='password' placeholder='password')
     br
-    
+          
     button(type='submit') Log In

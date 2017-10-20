@@ -1,16 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 const session = require('express-session');
 const port = process.env.PORT || 3000;
 
 const app = express();
 
-//use sessions for tracking logins
-app.use(session({
-  secret: 'some secret',
-  resave: true,
-  saveUninitialized: false
-}));
 
 
 //db connection - do we need it here again? already have in db_utils...
@@ -24,6 +19,14 @@ app.use(session({
 //parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
+//use sessions for tracking logins
+app.use(session({
+  secret: 'some secret',
+  resave: false,
+  saveUninitialized: false
+}));
+
 
 //serve static files from /public
 app.use(express.static(__dirname + '/public'));
