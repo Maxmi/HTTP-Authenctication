@@ -1,17 +1,21 @@
 extends layout
 block content
-  h1 #{title} 
-  form(method='POST' action='/login')
-    label(for='email') Email:
-    input#email.form-control(type='email' name='email' placeholder='email')
-    br
-    
-    label(for='password') Password:
-    input#password.form-control(type='password' name='password' placeholder='password')
-    br
-    
-    p(style="color: red;") #{error}
-    
-    button(type='submit') Log In
+  if email
+    h2 Welcome back #{email}
+    a#logoutlink(href='logout') Log Out
+  else 
+    h1 #{title} 
+    form(method='POST' action='/login')
+      label(for='email') Email:
+      input#email.form-control(type='email' name='email' placeholder='email')
+      br
+      
+      label(for='password') Password:
+      input#password.form-control(type='password' name='password' placeholder='password')
+      br
+      
+      p #{error}
+      
+      button(type='submit') Log In
     
     

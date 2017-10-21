@@ -11,22 +11,18 @@ const {
 //route to home page
 router.get('/', (req, res) => {
   return res.render('index', {
+    //read email from cookie if it exists 
     email: req.session.userID
-  });
+  })
 });
 
 //route to signup page - GET 
 router.get('/signup', (req, res) => {
-  //if this is authenticated user - redirect him to home page 
-  if (req.session) {
-    res.redirect('/');
-  } else { 
-    //if not - let him sign up
-    res.render('signup', {
-      title: 'Sign Up',
-      error: ''
-    });
-  }
+  res.render('signup', {
+    title: 'Sign Up',
+    error: '',
+    email: req.session.userID
+  })
 });
 
 //route to signup page - POST
@@ -42,25 +38,27 @@ router.post('/signup', (req, res) => {
     res.render('signup', {
       title: 'Sign Up',
       error: 'Please provide email and password to sign up'
-    })
+    });
   }
   //confirm that user typed the same password twice
-  if (password !== confirmPswd) {
+  else if (password !== confirmPswd) {
     res.render('signup', {
       title: 'Sign Up',
       error: 'Passwords do not match'
-    })
-  } else { //hash the password and add user info to db
+    });
+  } else {
+    //hash the password and add user info to db
     bcrypt.hash(password, saltRounds, (err, hash) => {
       addUser(email, hash)
-        .then(user => { //start tracking the user 
+        .then(user => {
+          //start tracking the user 
           req.session.userID = user.email;
           res.redirect('/');
         })
         .catch(err => {
           res.render('signup', {
             title: 'Sign Up',
-            error: 'Could not add user to the database'
+            error: 'Could not add user to database'
           })
           return err;
         })
@@ -68,18 +66,14 @@ router.post('/signup', (req, res) => {
   }
 });
 
+
 //route to login page - GET 
 router.get('/login', (req, res) => {
-  //if this is authenticated user - redirect him to home page 
-  if (req.session) {
-    res.redirect('/');
-  } else {
-    //if not - let him log in
-    res.render('login', {
-      title: 'Log In',
-      error: ''
-    });
-  }
+  res.render('login', {
+    title: 'Log In',
+    error: '',
+    email: req.session.userID
+  });
 });
 
 router.post('/login', (req, res) => {
@@ -93,7 +87,8 @@ router.post('/login', (req, res) => {
       title: 'Log In',
       error: 'Please provide email and password to log in'
     });
-  } else { //query db with provided credentials
+  } else { 
+    //query db with provided credentials
     getUser(email, password)
       .then(data => {
         if (email !== data.email || password !== data.password) {
@@ -101,7 +96,8 @@ router.post('/login', (req, res) => {
             title: 'Log In',
             error: 'Incorrect email or password'
           });
-        } else { //start tracking
+        } else { 
+          //start tracking
           req.session.userID = data.email;
           res.redirect('/');
         }
@@ -109,7 +105,7 @@ router.post('/login', (req, res) => {
       .catch(err => {
         res.render('login', {
           title: 'Log In',
-          error: 'There is no such user in our database'
+          error: 'Not found'
         })
         return err;
       })
@@ -125,7 +121,6 @@ router.get('/logout', (req, res, next) => {
   } else {
     return next();
   }
-
 });
 
 

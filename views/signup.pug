@@ -1,19 +1,23 @@
 extends layout
 block content
-  h1 #{title} 
-  form(method='POST' action='/signup')
-    label(for='email') Email:
-    input#email.form-control(type='email' name='email' placeholder='email')
-    br
+  if email
+    h2 Welcome back #{email}
+    a#logoutlink(href='logout') Log Out
+  else 
+    h1 #{title} 
+    form(method='POST' action='/signup')
+      label(for='email') Email:
+      input#email.form-control(type='email' name='email' placeholder='email')
+      br
+      
+      label(for='password') Password:
+      input#password.form-control(type='password' name='password' placeholder='password')
+      br
+      
+      label(for='confirmPswd') Confirm Password:
+      input#confirmPswd.form-control(type='password' name='confirmPswd' placeholder='confirm password')
+      br
+      
+      p #{error}
     
-    label(for='password') Password:
-    input#password.form-control(type='password' name='password' placeholder='password')
-    br
-    
-    label(for='confirmPswd') Confirm Password:
-    input#confirmPswd.form-control(type='password' name='confirmPswd' placeholder='confirm password')
-    br
-    
-    p(style="color: red;") #{error}
-  
-    button(type='submit') Sign Up
+      button(type='submit') Sign Up

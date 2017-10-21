@@ -6,15 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "export NODE_ENV=test && npm run test:db:reset && mocha",
-    "test:db:create": "http_auth_test",
-    "test:db:drop": "dropdb http_auth_test",
-    "test:db:loadschema": "psql http_auth_test < ./db/schema.sql",
-    "test:db:init_data": "psql http_auth_test < ./db/init_data.sql",
-    "test:db:reset": "npm run test:db:drop && npm run test:db:create && npm run test:db:loadschema",
-    "db:create": "psql -f db/schema.sql",
-    "db:init": "npm run db:loadschema && npm run db:init_data",
-    "db:loadschema": "psql http_auth < ./db/schema.sql",
-    "db:init_data": "psql http_auth < ./db/init_data.sql"
+    "db:create": "psql -f db/schema.sql"
   },
   "keywords": [],
   "author": "",
