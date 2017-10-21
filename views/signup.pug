@@ -1,24 +1,19 @@
-doctype html
-html(lang="en")
-  head
-    title Sign Up Page 
-    link(href='/css/style.css' rel='stylesheet')
-  body
-    h1 Sign Up
-    form(method='POST' action='/signup')
+extends layout
+block content
+  h1 #{title} 
+  form(method='POST' action='/signup')
+    label(for='email') Email:
+    input#email.form-control(type='email' name='email' placeholder='email')
+    br
     
-      label(for='email') Email:
-      input#email.form-control(type='email' required name='email' placeholder='email')
-      br
-      
+    label(for='password') Password:
+    input#password.form-control(type='password' name='password' placeholder='password')
+    br
     
-      label(for='password') Password:
-      input#password.form-control(type='password' required name='password' placeholder='password')
-      br
-      
-      
-      label(for='confirmPswd') Confirm Password:
-      input#confirmPswd.form-control(type='password' required  name='confirmPswd' placeholder='confirm password')
-      br
+    label(for='confirmPswd') Confirm Password:
+    input#confirmPswd.form-control(type='password' name='confirmPswd' placeholder='confirm password')
+    br
     
-      button(type='submit') Sign Up
+    p(style="color: red;") #{error}
+  
+    button(type='submit') Sign Up

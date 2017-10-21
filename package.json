@@ -8,13 +8,13 @@
     "test": "export NODE_ENV=test && npm run test:db:reset && mocha",
     "test:db:create": "http_auth_test",
     "test:db:drop": "dropdb http_auth_test",
-    "test:db:loadschema": "psql http_auth_test < ./database/schema.sql",
-    "test:db:init_data": "psql http_auth_test < ./database/init_data.sql",
+    "test:db:loadschema": "psql http_auth_test < ./db/schema.sql",
+    "test:db:init_data": "psql http_auth_test < ./db/init_data.sql",
     "test:db:reset": "npm run test:db:drop && npm run test:db:create && npm run test:db:loadschema",
-    "db:create": "createdb http_auth",
+    "db:create": "psql -f db/schema.sql",
     "db:init": "npm run db:loadschema && npm run db:init_data",
-    "db:loadschema": "psql http_auth < ./database/schema.sql",
-    "db:init_data": "psql http_auth < ./database/init_data.sql"
+    "db:loadschema": "psql http_auth < ./db/schema.sql",
+    "db:init_data": "psql http_auth < ./db/init_data.sql"
   },
   "keywords": [],
   "author": "",
@@ -22,10 +22,9 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.2",
-    "express-session": "^1.15.6",
-    "express-validator": "^4.2.1",
     "pg-promise": "^7.0.2",
     "pug": "^2.0.0-rc.4"
   },

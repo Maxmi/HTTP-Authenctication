@@ -1,30 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const expressValidator = require('express-validator');
-const session = require('express-session');
-const port = process.env.PORT || 3000;
+const session = require('cookie-session');
+const cookieParser = require('cookie-parser');
 
+const port = process.env.PORT || 3000;
 const app = express();
 
-
-
-//db connection - do we need it here again? already have in db_utils...
-// const pgp = require('pg-promise')();
-// const connection = process.env.NODE_ENV === 'test' 
-//   ? 'postgres:///http_auth_test'
-//   : 'postgres:///http_auth'
-//   
-// const db = pgp(connection);
 
 //parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressValidator());
-//use sessions for tracking logins
+app.use(cookieParser());
+
+
+//set cookies 
 app.use(session({
-  secret: 'some secret',
-  resave: false,
-  saveUninitialized: false
+  name: 'session',
+  keys: ['somesecretkey']
 }));
 
 
@@ -60,4 +52,4 @@ app.listen(port, () => {
   console.log('App is listening on port ' + port);
 });
 
-// module.exports = { app };
+module.exports = { app };

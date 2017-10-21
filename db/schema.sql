@@ -1,7 +1,7 @@
--- DROP DATABASE IF EXISTS http_auth;
--- CREATE DATABASE http_auth;
+DROP DATABASE IF EXISTS http_auth;
+CREATE DATABASE http_auth;
 
--- \c http_auth
+\c http_auth
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,

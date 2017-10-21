@@ -1,10 +1,11 @@
 extends layout
 block content
+  h1 #{title} 
     if email
-      h1 Welcome back #{email}
+      h2 Welcome back #{email}
       a#logoutlink(href='logout') Log Out
     else 
-      h1 Hello Stranger!
+      h2 Hello Stranger!
       a#signupLink(href='signup') Sign Up    
       a#loginlink(href='login') Log In
     
