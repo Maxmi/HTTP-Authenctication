@@ -9,3 +9,5 @@ CREATE TABLE users (
   password varchar(255) NOT NULL
 );
 
+INSERT INTO users (email, password)
+VALUES ('me@example.com', '123');

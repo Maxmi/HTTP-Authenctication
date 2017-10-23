@@ -60,7 +60,7 @@ router.post('/signup', (req, res) => {
             title: 'Sign Up',
             error: 'Could not add user to database'
           })
-          return err;
+          // return err;
         })
     })
   }
@@ -91,23 +91,27 @@ router.post('/login', (req, res) => {
     //query db with provided credentials
     getUser(email, password)
       .then(data => {
-        if (email !== data.email || password !== data.password) {
-          res.render('login', {
-            title: 'Log In',
-            error: 'Incorrect email or password'
-          });
-        } else { 
-          //start tracking
-          req.session.userID = data.email;
-          res.redirect('/');
-        }
+        //compare provided password with the one in db
+        bcrypt.compare(password, data.password)
+        .then(result => {
+          //if comparison result is true (passwords match)
+          if(result) {
+            req.session.userID = data.email;
+            res.redirect('/');
+          } else {
+            res.render('login', {
+              title: 'Log In',
+              error: 'Incorrect email or password'
+            });
+          }
+        })
       })
       .catch(err => {
         res.render('login', {
           title: 'Log In',
-          error: 'Not found'
+          error: 'User not found'
         })
-        return err;
+        // return err;
       })
   }
 });
